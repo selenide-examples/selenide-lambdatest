@@ -10,6 +10,6 @@ Example of running Selenide tests on LambdaTest platform
 
 ## Prerequisites:
 
-You need to have twp environment variables to run browsers on LambdaTest side:
+You need to have two environment variables to run browsers on LambdaTest side:
 * `LT_USERNAME` and 
 * `LT_ACCESS_KEY`.

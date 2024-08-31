@@ -31,6 +31,16 @@ jobs:
         LT_USERNAME: ${{ secrets.LT_USERNAME }}
         LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
 
+    - name: Upload test report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-report
+        retention-days: 7
+        path: |
+          **/build/reports
+          **/build/test-results
+
   dependency-submission:
 
     runs-on: ubuntu-latest
@@ -44,15 +54,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Upload test report
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: test-report
-        retention-days: 7
-        path: |
-          **/build/reports
-          **/build/test-results
 
     # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
