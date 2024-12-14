@@ -1,10 +1,12 @@
 package org.selenide.lt;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.FindBy;
 
+import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.CollectionCondition.sizeLessThan;
 import static com.codeborne.selenide.Selenide.open;
@@ -19,6 +21,9 @@ public class AnnotatedPageObjectTest {
   @Test
   void showsAllKnownSelenideUsers() {
     SelenideUsersPage page = page();
+    page.users.shouldHave(size(1));
+
+    page.showAll.click();
     page.users.shouldHave(sizeGreaterThan(40));
   }
 
@@ -32,6 +37,9 @@ public class AnnotatedPageObjectTest {
   private static class SelenideUsersPage {
     @FindBy(css = "#selenide-users .user:not(.hidden)")
     ElementsCollection users;
+
+    @FindBy(css = "#user-tags .reset-filter")
+    SelenideElement showAll;
 
     @FindBy(css = "#user-tags .tag")
     ElementsCollection userTags;
